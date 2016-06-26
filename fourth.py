@@ -33,6 +33,9 @@
 # launch_all()
 # it should launch all the rockets
 #
+# buy_fuel(amount)
+# it should increase stored fuel by amount
+#
 # getStats()
 # it should return its stats as a sting like: "rockets: 3, fuel: 100, launches: 1"
 
