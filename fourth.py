@@ -39,6 +39,59 @@
 # getStats()
 # it should return its stats as a sting like: "rockets: 3, fuel: 100, launches: 1"
 
+class Rocket():
+    def __init__(self, rocket_type, start_fuel_level, launches_num):
+        self.rocket_type = rocket_type
+        self.start_fuel_level = start_fuel_level
+        self.launches_num = launches_num
+        self.fuel_level = start_fuel_level
+
+    def launch(self):
+        if self.rocket_type == 'falcon1':
+            self.fuel_level -= 1
+        else:
+            self.fuel_level -= 9
+        self.launches_num +=1
+
+    def refill(self):
+        if self.rocket_type == 'falcon1':
+            self.max_fuel = 5
+        else:
+            self.max_fuel = 20
+        self.fuel_level = self.max_fuel
+        self.used_fuel = self.max_fuel - self.start_fuel_level
+        return self.used_fuel
+
+    def getStats(self):
+        return ('name: ' + str(self.rocket_type) + ', fuel: ' + str(self.fuel_level))
+
+
+class SpaceX():
+    def __init__(self, stored_fuel):
+        self.stored_fuel = stored_fuel
+        self.rockets_list = []
+        self.all_launches = 0
+
+    def addRocket(self, rocket):
+        self.rockets_list.append(rocket)
+        self.all_launches += rocket.launches_num
+
+    def refill_all(self):
+        for rocket in self.rockets_list:
+            rocket.refill()
+            self.stored_fuel -= rocket.used_fuel
+
+    def launch_all(self):
+        for rocket in self.rockets_list:
+            rocket.launch()
+            self.all_launches += 1
+
+    def buy_fuel(self, amount):
+        self.stored_fuel += amount
+
+    def getStats(self):
+        return ('rockets: ' + str(len(self.rockets_list)) + ', fuel: ' + str(self.stored_fuel) + ', launches: ' + str(self.all_launches))
+
 
 # The following code should work with the classes
 
